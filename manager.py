@@ -5,6 +5,9 @@ from flask_sqlalchemy import SQLAlchemy
 import redis
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
+from flask_wtf.csrf import CSRFProtect
+
+
 
 class Config(object):
     """配置参数"""
@@ -26,6 +29,9 @@ db = SQLAlchemy(app)
 
 # 创建连接到redis数据库的对象
 redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
+
+#开启csrf保护
+CSRFProtect(app)
 
 # 创建本地脚本管理器对象
 manger = Manager(app)
